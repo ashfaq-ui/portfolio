@@ -9,11 +9,11 @@ export default function Navbar(){
                 <h1>logo</h1>
 
                 <ul className="nav-list">
-                    <li>About</li>
-                    <li>Skill</li>
-                    <li>Projects</li>
-                    <li>Education</li>
-                    <li>contact</li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Skill</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
 
 
