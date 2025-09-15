@@ -1,0 +1,81 @@
+.userDetails{
+    display: flex ;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-around;
+    /* position:relative;
+    left: 50px; */
+
+}
+.user-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+/* ------------------------------------------------------------------------------------------ */
+.profilePic-area{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+#profilePic{
+
+    width: 300px;
+    height: 300px;
+    border: 30px solid rgb(0, 0, 0);
+    border-radius: 30px;
+}
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+.skill-Area{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100vw;
+
+    margin-top: 40px;
+}
+
+.skill-head{
+    text-align: center;
+}
+#skill-head-underline{
+    text-decoration: underline;
+}
+/* ------------------------------------------------------------------------------------------ */
+
+.skill-tables{
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    margin-top: 40px;
+}
+
+.skill-table-1{
+    border: 5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.skill-table-2{
+    border: 5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.skill-table-3{
+    border: 5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.skill-table-4{
+    border: 5px solid white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#skill-table-heading{
+    text-decoration: underline;
+}
