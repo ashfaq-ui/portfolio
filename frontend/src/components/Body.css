@@ -122,3 +122,60 @@
 /* ------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------------------ */
+.education-credentials{
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 100px;
+    
+}
+
+.education-decription{
+    text-align: center;
+}
+
+.grid-for-line{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    
+}
+
+.school-credentials-1{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 30px;
+    
+}
+
+
+.v-line-l{
+    /* position: relative;
+    left: 2px;  */
+    border-left: 2px solid white;
+}
+.v-line-r{
+    position:sticky;
+    left: 2px;
+    border-right: 2px solid white;
+    z-index: 0; 
+}
+
+.gap{
+    height: 200px;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+
+.contact-Area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-decription{
+    text-align: center;
+}

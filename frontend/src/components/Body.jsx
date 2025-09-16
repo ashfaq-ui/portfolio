@@ -192,6 +192,91 @@ export default function Body() {
                          <br />
                          Below are my academic qualifications.</p>
                 </div>
+                <div className="grid-for-line">
+                    
+                    <div className="v-line-r"></div>
+                    <div className="school-credentials-1">
+                        <h1>GCE O/L's</h1>
+                    </div>
+
+                    <div className="gap"></div>
+                    <div className="v-line-l"></div>
+
+                    <div className="school-credentials-1">
+                        <h1>GCE A/L's</h1>                        
+                    </div>
+                    <div className="v-line-l"></div>
+
+                    <div className="gap"></div>
+                    <div className="v-line-l"></div>
+
+                    <div className="v-line-r"></div>
+                    <div className="school-credentials-1">
+                        <h1>IIT</h1>
+                    </div>
+
+                </div>
+                
+            </div>
+
+            <div className="contact-Area">
+                <div className="contact-decription">
+                    <h1 id="contact-head">Contact</h1>
+                    <p>Education has been a key part of my growth,
+                        <br />
+                         allowing me to explore new technologies, 
+                         <br />
+                         sharpen my problem-solving abilities, 
+                         <br />
+                         and prepare for challenges in the software industry. 
+                         <br />
+                         Below are my academic qualifications.</p>
+                </div>
+
+                <form > {/* onSubmit={} */}
+                    <fieldset>
+                        <legend>Connect With Me !</legend>
+
+                        
+                        {/* Name */}
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Your Name"
+                            size="50"
+                            required />
+                        <br />
+                        <br />
+                        <input 
+                            type="number" 
+                            id="p-number" 
+                            name="p-number" 
+                            placeholder="Phone Number"
+                            size="50"
+                            required />
+                        <br />
+                        <br />
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="E-Mail"
+                            size="50"
+                            required />
+                        <br />
+                        <br />
+                        <input 
+                            type="text" 
+                            id="text" 
+                            name="message" 
+                            placeholder="Your message"
+                            size="50"
+                            required />
+
+                    </fieldset>
+                </form>
+
             </div>
         
         </>
