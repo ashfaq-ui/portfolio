@@ -52,7 +52,7 @@ export default function Body() {
                 </div>
 
                 <div className="skill-tables">
-                    <div className="skill-table-1">
+                    <div className="skill-table">
                         <h3 id="skill-table-heading">Frontend</h3>
 
                         
@@ -81,7 +81,7 @@ export default function Body() {
                         </div>
           
                     </div>
-                    <div className="skill-table-2">
+                    <div className="skill-table">
                         <h3 id="skill-table-heading">Backend</h3>
 
                         <div className="skills-icon-Area">
@@ -96,7 +96,7 @@ export default function Body() {
 
                         </div>
                     </div>
-                    <div className="skill-table-3">
+                    <div className="skill-table">
                         <h3 id="skill-table-heading">Languages</h3>
 
                         <div className="skills-icon-Area">
@@ -116,7 +116,7 @@ export default function Body() {
                         </div>
 
                     </div>
-                    <div className="skill-table-4">
+                    <div className="skill-table">
                         <h3 id="skill-table-heading">Tools</h3>
 
                         <div className="skills-icon-Area">
@@ -151,7 +151,47 @@ export default function Body() {
             </div>
 
             <div className="projects-Area">
+                <h1 id="project-head-underline">Projects</h1>
 
+                <div className="project-tables">
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    <div className="project-table">
+                        <h1>table-1</h1>
+                    </div>
+                    
+                </div>
+
+
+
+            </div>
+
+            <div className="education-credentials">
+                <div className="education-decription">
+                    <h1 id="education-head">EDUCATION</h1>
+                    <p>Education has been a key part of my growth,
+                        <br />
+                         allowing me to explore new technologies, 
+                         <br />
+                         sharpen my problem-solving abilities, 
+                         <br />
+                         and prepare for challenges in the software industry. 
+                         <br />
+                         Below are my academic qualifications.</p>
+                </div>
             </div>
         
         </>

@@ -55,26 +55,12 @@
     margin-top: 40px;
 }
 
-.skill-table-1{
+.skill-table{
     border: 5px solid white;
     padding: 10px;
     border-radius: 10px;
 }
-.skill-table-2{
-    border: 5px solid white;
-    padding: 10px;
-    border-radius: 10px;
-}
-.skill-table-3{
-    border: 5px solid white;
-    padding: 10px;
-    border-radius: 10px;
-}
-.skill-table-4{
-    border: 5px solid white;
-    padding: 10px;
-    border-radius: 10px;
-}
+
 
 #skill-table-heading{
     text-decoration: underline;
@@ -97,3 +83,42 @@
     width: 50px;
     height: 50px;
 }
+
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+
+.projects-Area{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px;
+    margin-bottom: 200px;
+}
+
+#project-head-underline{
+    text-decoration: underline;
+    text-align: center;
+}
+
+.project-tables{
+    display: grid;
+    grid-template-columns: repeat( 3,1fr);
+    gap: 10px;
+    
+}
+
+.project-table{
+    display: flex;
+    justify-content: center;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 10px;
+
+
+}
+
+
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------------------ */
