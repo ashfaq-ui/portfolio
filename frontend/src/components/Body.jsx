@@ -274,6 +274,18 @@ export default function Body() {
                             size="50"
                             required />
 
+                        <br />
+                        <br />
+
+                        <input 
+                            type="submit"
+                        />
+                        
+                        <input 
+                            type="reset"
+                        />
+                            
+
                     </fieldset>
                 </form>
 
