@@ -1,4 +1,5 @@
 import './Footer.css'
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer(){
 
@@ -16,13 +17,19 @@ export default function Footer(){
                     <li><a href="#">Contact</a></li>
                 </ul>
 
-                <ul className="socialmedia-footer">
-                    <li><a href="#"><i className='bx bxl-facebook-circle'></i></a></li>
-                    <li><a href="#"><i className='bx bxl-twitter'></i></a></li>
-                    <li><a href="#"><i className='bx bxl-instagram'></i></a></li>
-                    <li><a href="#"><i className='bx bxl-youtube'></i></a></li>
-                    <li><a href="#"><i className='bx bxl-tiktok'></i></a></li>
-                </ul>
+                <div className="flex gap-4 text-2xl">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                        <FaFacebook />
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                        <FaTwitter />
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                        <FaInstagram />
+                    </a>
+                </div>
+
+                <p>© 2025 Mohamed Ashfaq. All rights reserved.</p>
 
 
             </footer>
