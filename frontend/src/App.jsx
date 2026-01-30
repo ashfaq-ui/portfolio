@@ -47,7 +47,7 @@ export default function App() {
         <div className="container hero-grid">
           <div className="hero-text">
             <div className="badge">
-              <CheckCircle2 size={14} /> Available for AI Internships
+              <CheckCircle2 size={14} /> Available for SE Internships
             </div>
             <h1>Engineering <br /><span className="gradient">Intelligence.</span></h1>
             <p>
