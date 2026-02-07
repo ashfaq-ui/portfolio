@@ -17,13 +17,28 @@ import {
 } from 'lucide-react';
 import './App.css';
 
-const ProjectCard = ({ title, category, description, tech, link }) => (
+const ProjectCard = ({ title, category, description, tech, link, image }) => (
   <a 
     href={link || "#"} 
     target="_blank" 
     rel="noopener noreferrer" 
     className="group relative bg-zinc-900/40 border border-zinc-800 hover:border-zinc-600 transition-all duration-300 p-6 md:p-8 rounded-xl overflow-hidden hover:bg-zinc-900/60 block"
   >
+    {/* NEW: Sample Photo Placeholder */}
+    <div className="w-full h-48 mb-6 overflow-hidden rounded-lg bg-zinc-800/50 border border-white/5 relative">
+      {image ? (
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" 
+        />
+      ) : (
+        <div className="flex items-center justify-center h-full text-zinc-600 text-sm tracking-widest uppercase">
+          Sample Image
+        </div>
+      )}
+    </div>
+
     <div className="flex justify-between items-start mb-6">
       <div>
         <span className="text-xs font-medium tracking-widest text-zinc-500 uppercase mb-2 block">{category}</span>
@@ -31,7 +46,11 @@ const ProjectCard = ({ title, category, description, tech, link }) => (
       </div>
       <ArrowUpRight className="text-zinc-600 group-hover:text-white transition-colors duration-300" size={20} />
     </div>
-    <p className="text-zinc-400 leading-relaxed mb-8 font-light text-sm md:text-base">{description}</p>
+    
+    <p className="text-zinc-400 leading-relaxed mb-8 font-light text-sm md:text-base">
+      {description}
+    </p>
+
     <div className="flex flex-wrap gap-2 md:gap-3 mt-auto">
       {tech.map((t, i) => (
         <span key={i} className="text-xs font-medium text-zinc-400 bg-zinc-800/50 px-3 py-1.5 rounded-full border border-zinc-700/50">
@@ -41,7 +60,6 @@ const ProjectCard = ({ title, category, description, tech, link }) => (
     </div>
   </a>
 );
-
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -159,12 +177,12 @@ export default function App() {
               Available for Internships
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6 md:mb-8">
-              Engineering <br />
-              <span className="text-zinc-500">Intelligence.</span>
+              MOHAMED <br />
+              <span className="text-zinc-500">ASHFAQ</span>
             </h1>
             <p className="text-lg md:text-2xl text-zinc-400 font-light leading-relaxed max-w-2xl mb-8 md:mb-10 mx-auto md:mx-0">
-              I am <span className="text-white font-medium">Mohamed Ashfaq</span>, a Computer Science student at IIT. 
-              I build scalable AI systems and full-stack applications.
+              Computer Science Undergraduate at the <span className="text-white font-medium">University of Westminster</span>. 
+              I specialize in architecting scalable AI systems and engineering high-performance full-stack applications.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <a href="#projects" className="bg-white text-black font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-200 transition-colors text-sm md:text-base">View Work</a>
@@ -203,7 +221,7 @@ export default function App() {
               { title: 'Frontend', icon: <Layout />, skills: ['React', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript', 'Next.js'] },
               { title: 'Backend & DB', icon: <Server />, skills: ['Spring Boot', 'Python', 'MySQL', 'PostgreSQL'] },
               { title: 'Languages', icon: <Terminal />, skills: ['Java', 'Python', 'C++', 'JavaScript'] },
-              { title: 'AI/ML & Tools', icon: <Settings />, skills: ['TensorFlow', 'Keras', 'Git', 'GitHub', 'VS Code', 'Postman', 'Jupyter'] }
+              { title: 'AI/ML & Tools', icon: <Settings />, skills: ['TensorFlow', 'Keras', 'Git', 'GitHub', 'VS Code', 'Postman', 'SupaBase', 'Railway'] }
             ].map((group, idx) => (
               <div key={idx} className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors group">
                 <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-2">
@@ -223,16 +241,65 @@ export default function App() {
         </section>
 
         {/* PROJECTS */}
+        {/* PROJECTS SECTION (Updated with 5 Items) */}
         <section id="projects" className="mb-32 scroll-mt-28">
           <div className="flex items-end justify-between mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Selected Work</h2>
-            <span className="text-zinc-600 text-sm hidden md:block">01 — 04</span>
+            <span className="text-zinc-600 text-sm hidden md:block">01 — 05</span>
           </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <ProjectCard title="Plannora" category="Full Stack Engineering" description="An AI-powered trip planner designed for Sri Lankan tourism. Features a custom recommendation engine built with Python." tech={['React', 'Flask', 'ML', 'Maps API']} link="https://github.com/ashfaq-ui/plannora"/>
-            <ProjectCard title="Project Airea" category="IoT & AI Research" description="A medical IoT system for monitoring lung health. I led the development of a TensorFlow model capable of detecting cough anomalies." tech={['TensorFlow', 'IoT', 'Python', 'Signal Proc']} link="https://github.com/ashfaq-ui/airea"/>
-            <ProjectCard title="Exoplanet Hunter" category="Deep Learning Research" description="An astronomical analysis tool processing Kepler telescope data to identify potential exoplanet candidates." tech={['Keras', 'Data Science', 'Neural Networks']} link="https://github.com/ashfaq-ui"/>
-             <ProjectCard title="Mystery Solver AI" category="Natural Language Processing" description="An intelligent assistant for law enforcement that analyzes case files to suggest investigative lines of questioning." tech={['NLP', 'LLMs', 'Python']} link="https://github.com/ashfaq-ui"/>
+            
+            {/* 1. Project Airea */}
+            <ProjectCard 
+              title="Project Airea" 
+              category="IoT & AI Research" 
+              description="A medical IoT system for monitoring lung health. I led the development of a TensorFlow model capable of detecting cough anomalies." 
+              tech={['TensorFlow', 'IoT', 'Python', 'Signal Proc']} 
+              link="https://airea.lk"
+              image="/airea.png" 
+            />
+
+            {/* 2. Black Olives */}
+            <ProjectCard 
+              title="Black Olives" 
+              category="Premium E-commerce" 
+              description="A high-performance retail platform for Apple products. Features a minimalist dark UI, dynamic product navigation, and optimized SEO." 
+              tech={['Next.js', 'React', 'Tailwind CSS', 'PostgreSQL']} 
+              link="https://web-pro-1.netlify.app/" 
+              image="/blackolives.png"
+            />
+
+            {/* 3. SpendWise */}
+            <ProjectCard 
+              title="SpendWise" 
+              category="FinTech Full Stack" 
+              description="A secure expense tracker with a decoupled 3-tier architecture. Handles business logic via Spring Boot and offers real-time interaction through React." 
+              tech={['Spring Boot', 'React', 'PostgreSQL', 'Railway']} 
+              link="https://jazzy-concha-e4ad62.netlify.app/" 
+              image="/spendwise.png"
+            />
+
+            {/* 4. Eco Pulse */}
+            <ProjectCard 
+              title="Eco Pulse" 
+              category="Sustainable Web Design" 
+              description="A responsive platform advocating for UN SDG 13 (Climate Action). Built entirely from scratch using semantic HTML5, CSS3, and vanilla JavaScript." 
+              tech={['HTML5', 'CSS3', 'JavaScript', 'UI/UX']} 
+              link="https://spectacular-haupia-11b44a.netlify.app/" 
+              image="/eco_pulse.png"
+            />
+
+            {/* 5. Traffic Analyst (Added as requested) */}
+            <ProjectCard 
+              title="Traffic Analyst" 
+              category="Data Science & Viz" 
+              description="A Python-based analytical tool for processing council traffic surveys. Generates automated statistical reports and dynamic histograms." 
+              tech={['Python', 'Tkinter', 'Pandas', 'Data Viz']} 
+              link="https://github.com/ashfaq-ui/Traffic_Data_Analysis" 
+              image="/traffic.png"
+            />
+
           </div>
         </section>
 
