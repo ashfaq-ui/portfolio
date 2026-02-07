@@ -186,7 +186,7 @@ export default function App() {
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <a href="#projects" className="bg-white text-black font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-200 transition-colors text-sm md:text-base">View Work</a>
-              <a href="/cv.pdf" className="bg-zinc-900 text-white border border-zinc-800 font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-800 transition-colors text-sm md:text-base">Resume</a>
+              <a href="/AshfaqCv.pdf" className="bg-zinc-900 text-white border border-zinc-800 font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-800 transition-colors text-sm md:text-base">Resume</a>
             </div>
           </div>
           <div className="relative group w-64 h-64 md:w-96 md:h-96 flex-shrink-0 order-1 md:order-2">
