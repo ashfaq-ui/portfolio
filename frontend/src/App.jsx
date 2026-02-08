@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Github, 
   Linkedin, 
@@ -64,6 +64,16 @@ const ProjectCard = ({ title, category, description, tech, link, image }) => (
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time (e.g., 2 seconds)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
@@ -71,8 +81,34 @@ export default function App() {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 transition-opacity duration-700 ease-out" style={{ opacity: loading ? 1 : 0 }}>
+        <div className="text-center animate-pulse">
+             <div className="font-bold text-3xl md:text-5xl text-white tracking-tight z-[60]">
+            ASHFAQ<span className="text-zinc-600">.DEV</span>
+          </div>
+          <div className="mt-4 w-16 h-1 bg-zinc-800 rounded-full mx-auto overflow-hidden">
+             <div className="h-full bg-white animate-progress-bar"></div>
+          </div>
+        </div>
+        <style jsx>{`
+            @keyframes progress-bar {
+                0% { width: 0%; }
+                50% { width: 50%; }
+                100% { width: 100%; }
+            }
+            .animate-progress-bar {
+                animation: progress-bar 2s ease-in-out forwards;
+            }
+        `}</style>
+      </div>
+    );
+  }
+
+
   return (
-    <div className="min-h-screen text-zinc-300 relative selection:bg-white selection:text-black font-sans">
+    <div className="min-h-screen text-zinc-300 relative selection:bg-white selection:text-black font-sans animate-fade-in">
       
       {/* Background Texture */}
       <div className="noise-bg"></div>
