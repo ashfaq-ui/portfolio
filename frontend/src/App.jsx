@@ -13,7 +13,8 @@ import {
   Settings,
   Menu,
   X,
-  Mail
+  Mail,
+  Send
 } from 'lucide-react';
 import './App.css';
 
@@ -24,7 +25,7 @@ const ProjectCard = ({ title, category, description, tech, link, image }) => (
     rel="noopener noreferrer" 
     className="group relative bg-zinc-900/40 border border-zinc-800 hover:border-zinc-600 transition-all duration-300 p-6 md:p-8 rounded-xl overflow-hidden hover:bg-zinc-900/60 block"
   >
-    {/* NEW: Sample Photo Placeholder */}
+    {/* Sample Photo Placeholder */}
     <div className="w-full h-48 mb-6 overflow-hidden rounded-lg bg-zinc-800/50 border border-white/5 relative">
       {image ? (
         <img 
@@ -60,6 +61,7 @@ const ProjectCard = ({ title, category, description, tech, link, image }) => (
     </div>
   </a>
 );
+
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -110,26 +112,18 @@ export default function App() {
           )}
         </div>
 
-        {/* MOBILE MENU - THE SOLID GRID FIX 
-            We use a solid background color to BLOCK the page content below.
-        */}
+        {/* MOBILE MENU - THE SOLID GRID FIX */}
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-[9999] md:hidden">
-            
-            {/* LAYER 1: Solid Grid Background (No transparency) */}
             <div 
               className="absolute inset-0 bg-[#050505]"
               style={{ 
-                // This creates the faint grid lines like your reference
                 backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
                 backgroundSize: '35px 35px'
               }}
             ></div>
 
-            {/* LAYER 2: The Menu Content */}
             <div className="relative h-full flex flex-col animate-fade-in">
-              
-              {/* Header */}
               <div className="h-20 px-6 flex items-center justify-between border-b border-white/10 bg-black/50">
                 <div className="font-bold text-xl text-white tracking-tight">
                   ASHFAQ<span className="text-zinc-600">.DEV</span>
@@ -142,7 +136,6 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Links */}
               <div className="flex-1 flex flex-col items-center justify-center gap-10 p-6">
                 {['About', 'Skills', 'Projects', 'Education', 'Contact'].map((item) => (
                   <button 
@@ -155,7 +148,6 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Footer Socials */}
               <div className="p-10 flex justify-center gap-8 border-t border-white/10 bg-black/40">
                 <a href="https://github.com/ashfaq-ui" className="text-zinc-500 hover:text-white transition-colors p-3 bg-zinc-900 rounded-full border border-white/5"><Github size={24} /></a>
                 <a href="https://linkedin.com/in/ashfaq-mohamed" className="text-zinc-500 hover:text-white transition-colors p-3 bg-zinc-900 rounded-full border border-white/5"><Linkedin size={24} /></a>
@@ -241,7 +233,6 @@ export default function App() {
         </section>
 
         {/* PROJECTS */}
-        {/* PROJECTS SECTION (Updated with 5 Items) */}
         <section id="projects" className="mb-32 scroll-mt-28">
           <div className="flex items-end justify-between mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Selected Work</h2>
@@ -249,8 +240,6 @@ export default function App() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            
-            {/* 1. Project Airea */}
             <ProjectCard 
               title="Project Airea" 
               category="IoT & AI Research" 
@@ -259,8 +248,6 @@ export default function App() {
               link="https://airea.lk"
               image="/airea.png" 
             />
-
-            {/* 2. Black Olives */}
             <ProjectCard 
               title="Black Olives" 
               category="Premium E-commerce" 
@@ -269,8 +256,6 @@ export default function App() {
               link="https://web-pro-1.netlify.app/" 
               image="/blackolives.png"
             />
-
-            {/* 3. SpendWise */}
             <ProjectCard 
               title="SpendWise" 
               category="FinTech Full Stack" 
@@ -279,8 +264,6 @@ export default function App() {
               link="https://jazzy-concha-e4ad62.netlify.app/" 
               image="/spendwise.png"
             />
-
-            {/* 4. Eco Pulse */}
             <ProjectCard 
               title="Eco Pulse" 
               category="Sustainable Web Design" 
@@ -289,8 +272,6 @@ export default function App() {
               link="https://spectacular-haupia-11b44a.netlify.app/" 
               image="/eco_pulse.png"
             />
-
-            {/* 5. Traffic Analyst (Added as requested) */}
             <ProjectCard 
               title="Traffic Analyst" 
               category="Data Science & Viz" 
@@ -299,7 +280,6 @@ export default function App() {
               link="https://github.com/ashfaq-ui/Traffic_Data_Analysis" 
               image="/traffic.png"
             />
-
           </div>
         </section>
 
@@ -333,8 +313,66 @@ export default function App() {
           </div>
         </section>
 
+        {/* CONTACT SECTION (Themed to match the website) */}
+        <section id="contact" className="mb-20 animate-fade-in scroll-mt-28 text-center max-w-xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">
+            Let's Connect
+          </h2>
+          <p className="text-zinc-400 mb-10 leading-relaxed">
+            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          </p>
+          
+          {/* Card Container - Matches Project Card Style */}
+          <div className="bg-zinc-900/40 border border-zinc-800 p-8 rounded-2xl backdrop-blur-sm hover:border-zinc-700 transition-colors duration-300">
+            
+            <form className="space-y-4" action="mailto:ashfaq.cs2025@gmail.com" method="post" encType="text/plain">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input 
+                  type="text" 
+                  name="name"
+                  placeholder="Name" 
+                  className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
+                  required
+                />
+                <input 
+                  type="email" 
+                  name="email"
+                  placeholder="Email" 
+                  className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
+                  required
+                />
+              </div>
+              
+              <input 
+                type="text" 
+                name="subject"
+                placeholder="Subject" 
+                className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
+                required
+              />
+              
+              <textarea 
+                name="message"
+                placeholder="Message" 
+                rows="4"
+                className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all resize-none"
+                required
+              ></textarea>
+              
+              {/* Button - Matches the 'View Work' button style (White & Black) */}
+              <button 
+                type="submit"
+                className="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-zinc-200 transition-colors duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </section>
+
         {/* FOOTER */}
-        <footer id="contact" className="py-8 mt-12 border-t border-white/5 scroll-mt-28">
+        <footer className="py-8 mt-12 border-t border-white/5 scroll-mt-28">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
             <div>
               <h3 className="text-lg font-bold text-white mb-1">Let's build something.</h3>
@@ -346,7 +384,9 @@ export default function App() {
                 <a href="https://linkedin.com/in/ashfaq-mohamed" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
                 <a href="https://github.com/ashfaq-ui" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
               </div>
-              <div className="text-xs text-zinc-800">© 2026 Mohamed Ashfaq. All rights reserved.</div>
+              <div className="text-xs text-zinc-800">
+                © 2026 Mohamed Ashfaq. All rights reserved.
+              </div>
             </div>
           </div>
         </footer>
