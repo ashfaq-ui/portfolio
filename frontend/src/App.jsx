@@ -210,7 +210,7 @@ export default function App() {
             </h1>
             <p className="text-lg md:text-2xl text-zinc-400 font-light leading-relaxed max-w-2xl mb-8 md:mb-10 mx-auto md:mx-0">
               Computer Science Undergraduate at the <span className="text-white font-medium">University of Westminster</span>. 
-              I specialize in architecting scalable AI systems and engineering high-performance full-stack applications.
+              I specialize in building production-ready full-stack web applications and IoT systems using <span className="text-white font-medium">Java (Spring Boot), React,</span> and <span className="text-white font-medium">PostgreSQL</span> — with 8 shipped projects across web, IoT, desktop, and ML.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <a href="#projects" className="bg-white text-black font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-200 transition-colors text-sm md:text-base">View Work</a>
@@ -228,8 +228,8 @@ export default function App() {
         {/* STATS */}
         <section id="skills" className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 border-y border-white/5 py-8 md:py-12 mb-20 md:mb-32 scroll-mt-28">
           {[
-            { label: 'Focus', value: 'AI & Deep Learning', icon: <Cpu /> },
-            { label: 'Stack', value: 'Java / React / MySQL', icon: <Code2 /> },
+            { label: 'Focus', value: 'Full-Stack & IoT', icon: <Cpu /> },
+            { label: 'Stack', value: 'Java / React / PostgreSQL', icon: <Code2 /> },
             { label: 'Education', value: 'BSc Computer Science', icon: <GraduationCap /> },
             { label: 'Location', value: 'Sri Lanka', icon: <Layers /> }
           ].map((stat, i) => (
@@ -246,10 +246,11 @@ export default function App() {
           <h3 className="text-xl font-bold text-white mb-8 pl-4 border-l-2 border-white">Technical Proficiency</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { title: 'Frontend', icon: <Layout />, skills: ['React', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript', 'Next.js'] },
-              { title: 'Backend & DB', icon: <Server />, skills: ['Spring Boot', 'Python', 'MySQL', 'PostgreSQL'] },
-              { title: 'Languages', icon: <Terminal />, skills: ['Java', 'Python', 'C++', 'JavaScript'] },
-              { title: 'AI/ML & Tools', icon: <Settings />, skills: ['TensorFlow', 'Keras', 'Git', 'GitHub', 'VS Code', 'Postman', 'SupaBase', 'Railway'] }
+              { title: 'Frontend', icon: <Layout />, skills: ['React', 'Next.js', 'Flutter', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3'] },
+              { title: 'Backend & DB', icon: <Server />, skills: ['Spring Boot', 'REST API', 'JWT Auth', 'Microservices', 'PostgreSQL', 'MySQL', 'Supabase'] },
+              { title: 'Languages', icon: <Terminal />, skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C++'] },
+              { title: 'DevOps & Tools', icon: <Settings />, skills: ['Docker', 'GitHub Actions', 'CI/CD', 'Git', 'Postman', 'Figma', 'Electron', 'Railway', 'Vercel'] },
+              { title: 'Data & ML', icon: <Cpu />, skills: ['Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Plotly', 'Jupyter Notebooks'] }
             ].map((group, idx) => (
               <div key={idx} className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors group">
                 <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-2">
@@ -272,48 +273,72 @@ export default function App() {
         <section id="projects" className="mb-32 scroll-mt-28">
           <div className="flex items-end justify-between mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Selected Work</h2>
-            <span className="text-zinc-600 text-sm hidden md:block">01 — 05</span>
+            <span className="text-zinc-600 text-sm hidden md:block">01 — 08</span>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <ProjectCard 
-              title="Project Airea" 
-              category="IoT & AI Research" 
-              description="A medical IoT system for monitoring lung health. I led the development of a TensorFlow model capable of detecting cough anomalies." 
-              tech={['TensorFlow', 'IoT', 'Python', 'Signal Proc']} 
+            <ProjectCard
+              title="Airea"
+              category="IoT & Health Tech"
+              description="End-to-end IoT health monitoring platform for early lung cancer detection. Built over 7 months with a 4-member team — ESP32 wearables, Spring Boot REST API backend, and a Flutter app with Supabase storage and FCM real-time alerts."
+              tech={['C++ (ESP32)', 'Flutter', 'Spring Boot', 'Supabase', 'FCM']}
               link="https://airea.lk"
-              image="/airea.png" 
+              image="/airea.png"
             />
-            <ProjectCard 
-              title="Black Olives" 
-              category="Premium E-commerce" 
-              description="A high-performance retail platform for Apple products. Features a minimalist dark UI, dynamic product navigation, and optimized SEO." 
-              tech={['Next.js', 'React', 'Tailwind CSS', 'PostgreSQL']} 
-              link="https://web-pro-1.netlify.app/" 
-              image="/blackolives.png"
+            <ProjectCard
+              title="MediBook"
+              category="Full-Stack Web App"
+              description="Full-stack clinic appointment system built solo in under 6 weeks. Features 3 user roles (Patient, Doctor, Admin), 15+ REST API endpoints, JWT auth, BCrypt hashing, Gmail SMTP notifications, and a CI/CD pipeline via GitHub Actions."
+              tech={['React', 'Spring Boot', 'PostgreSQL', 'JWT', 'GitHub Actions']}
+              link="https://medi-book-flax.vercel.app/"
+              image="/medibook.png"
             />
-            <ProjectCard 
-              title="SpendWise" 
-              category="FinTech Full Stack" 
-              description="A secure expense tracker with a decoupled 3-tier architecture. Handles business logic via Spring Boot and offers real-time interaction through React." 
-              tech={['Spring Boot', 'React', 'PostgreSQL', 'Railway']} 
-              link="https://jazzy-concha-e4ad62.netlify.app/" 
+            <ProjectCard
+              title="SpendWise"
+              category="FinTech Full Stack"
+              description="A secure expense tracker with a decoupled 3-tier architecture. Handles business logic via Spring Boot with 10+ REST API endpoints, PostgreSQL persistence, and a React frontend with real-time updates."
+              tech={['Spring Boot', 'React', 'PostgreSQL', 'Railway']}
+              link="https://jazzy-concha-e4ad62.netlify.app/"
               image="/spendwise.png"
             />
-            <ProjectCard 
-              title="Eco Pulse" 
-              category="Sustainable Web Design" 
-              description="A responsive platform advocating for UN SDG 13 (Climate Action). Built entirely from scratch using semantic HTML5, CSS3, and vanilla JavaScript." 
-              tech={['HTML5', 'CSS3', 'JavaScript', 'UI/UX']} 
-              link="https://spectacular-haupia-11b44a.netlify.app/" 
+            <ProjectCard
+              title="Invoice Manager"
+              category="Desktop App"
+              description="Cross-platform desktop app for Mac and Windows delivered solo in 3 weeks. Manages invoices, sales ledger, and financial analysis across 3 report types with zero-install distribution via GitHub Releases."
+              tech={['Electron', 'JavaScript', 'Node.js']}
+              link="https://github.com/ashfaq-ui/invoice-manager"
+              image="/dataentry.png"
+            />
+            <ProjectCard
+              title="Loan Approval Prediction"
+              category="Machine Learning"
+              description="End-to-end ML pipeline on 58,640 samples. KNN tuned via GridSearchCV achieved 92.21% accuracy and 0.9519 AUC-ROC — best across 3 classifiers. Includes full data preprocessing, Voting Ensemble, and feature importance analysis."
+              tech={['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Plotly']}
+              link="https://github.com/ashfaq-ui/loan-approval-ml"
+              image="ML.png"
+            />
+            <ProjectCard
+              title="Black Olives"
+              category="Premium E-commerce"
+              description="A high-performance retail platform for Apple products built solo in 4 months. Features SSR with Next.js getServerSideProps, dynamic routing, and SEO-optimized pages."
+              tech={['Next.js', 'React', 'Tailwind CSS']}
+              link="https://web-pro-1.netlify.app/"
+              image="/blackolives.png"
+            />
+            <ProjectCard
+              title="Eco Pulse"
+              category="Sustainable Web Design"
+              description="A responsive platform advocating for UN SDG 13 (Climate Action). Built entirely from scratch using semantic HTML5, CSS3, and vanilla JavaScript."
+              tech={['HTML5', 'CSS3', 'JavaScript', 'UI/UX']}
+              link="https://spectacular-haupia-11b44a.netlify.app/"
               image="/eco_pulse.png"
             />
-            <ProjectCard 
-              title="Traffic Analyst" 
-              category="Data Science & Viz" 
-              description="A Python-based analytical tool for processing council traffic surveys. Generates automated statistical reports and dynamic histograms." 
-              tech={['Python', 'Tkinter', 'Pandas', 'Data Viz']} 
-              link="https://github.com/ashfaq-ui/Traffic_Data_Analysis" 
+            <ProjectCard
+              title="Traffic Analyst"
+              category="Data Science & Viz"
+              description="A Python-based analytical tool for processing council traffic surveys. Generates automated statistical reports and dynamic histograms."
+              tech={['Python', 'Tkinter', 'Pandas', 'Data Viz']}
+              link="https://github.com/ashfaq-ui/Traffic_Data_Analysis"
               image="/traffic.png"
             />
           </div>
@@ -326,9 +351,12 @@ export default function App() {
             <div className="relative">
               <span className="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></span>
               <h3 className="text-lg md:text-xl font-bold text-white">BSc (Hons) Computer Science</h3>
-              <p className="text-zinc-500 mb-2 text-sm md:text-base">Informatics Institute of Technology (IIT) | 2024 - Present</p>
-              <p className="text-zinc-400 max-w-2xl text-sm md:text-base leading-relaxed">
-                Affiliated with the University of Westminster. Specialized coursework in AI, Data Structures, and Algorithms.
+              <p className="text-zinc-500 mb-2 text-sm md:text-base">Informatics Institute of Technology (IIT), Affiliated with University of Westminster | Sep 2024 – Present</p>
+              <p className="text-zinc-400 max-w-2xl text-sm md:text-base leading-relaxed mb-3">
+                Current Average: <span className="text-white font-semibold">76.8%</span> — Notable grades: Computer System Fundamentals (97%), Mathematics for Computing (88%), Software Development II — Java (83%).
+              </p>
+              <p className="text-zinc-500 text-sm leading-relaxed">
+                Level 05 (In Progress): Database Systems (87%), OOP (78%), SDGP (81%), Machine Learning & Data Mining, Algorithms, Client Server Architecture.
               </p>
             </div>
             <div className="relative">
