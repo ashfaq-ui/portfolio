@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,30 +6,24 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #070714; /* Deep purple/navy black */
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #050505; /* Fallback color */
+  font-family: 'Outfit', sans-serif;
+  background-color: #070714;
+  color: #e2e8f0; /* Tailwind slate-200 */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* PERFORMANCE FIX: 
-   Replaced expensive SVG filter with a static noise image.
-   This drastically reduces CPU usage and improves your Lighthouse score.
-*/
-.noise-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Lightweight noise pattern */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  pointer-events: none;
-  z-index: 0;
-  /* Optimization: Prevents repaints on scroll */
-  will-change: transform; 
+/* Deep Space Card Hover Effects */
+.space-card {
+  @apply bg-[#0d0f21] border border-indigo-900/40 shadow-sm transition-all duration-300;
+}
+.space-card-hover {
+  @apply hover:border-indigo-500/50 hover:bg-[#11132b] hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)];
 }
 
 /* Smooth Fade In Animation */
@@ -40,4 +34,18 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Very subtle glowing starlight mesh */
+.mesh-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: 
+    radial-gradient(at 20% 0%, rgba(99,102,241,0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, rgba(168,85,247,0.05) 0px, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }

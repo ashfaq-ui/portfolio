@@ -1,461 +1,546 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  LayoutDashboard, 
+  FolderGit2, 
+  GraduationCap, 
+  Mail, 
   Github, 
   Linkedin, 
-  ArrowUpRight, 
-  Cpu, 
-  Code2, 
-  GraduationCap, 
-  Layers, 
-  Layout, 
-  Server, 
-  Terminal, 
-  Settings,
+  ExternalLink,
+  MapPin,
+  FileText,
   Menu,
   X,
-  Mail,
-  Send
+  ChevronRight,
+  Code2,
+  Terminal,
+  Cpu,
+  MonitorSmartphone,
+  Briefcase,
+  Award,
+  CheckCircle2,
+  TrendingUp,
+  Activity
 } from 'lucide-react';
 import './App.css';
 
-const ProjectCard = ({ title, category, description, tech, link, image }) => (
-  <a 
-    href={link || "#"} 
-    target="_blank" 
-    rel="noopener noreferrer" 
-    className="group relative bg-zinc-900/40 border border-zinc-800 hover:border-zinc-600 transition-all duration-300 p-6 md:p-8 rounded-xl overflow-hidden hover:bg-zinc-900/60 block"
-  >
-    {/* Sample Photo Placeholder */}
-    <div className="w-full h-48 mb-6 overflow-hidden rounded-lg bg-zinc-800/50 border border-white/5 relative">
-      {image ? (
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" 
-        />
-      ) : (
-        <div className="flex items-center justify-center h-full text-zinc-600 text-sm tracking-widest uppercase">
-          Sample Image
+const projects = [
+  {
+    title: "Airea - Smart Monitor",
+    category: "IoT Health Platform",
+    description: "End-to-end IoT platform. ESP32 wearables with TensorFlow Lite edge ML, Spring Boot microservices, and a Flutter mobile app.",
+    tech: ["C++", "Flutter", "Spring Boot", "TensorFlow"],
+    link: "https://airea.lk",
+    icon: MonitorSmartphone,
+    status: "Production",
+    image: "/airea.png"
+  },
+  {
+    title: "Ai - MediBook",
+    category: "Full-Stack Web App",
+    description: "Clinic system with 3 roles, JWT auth, and a Google Gemini API-powered Patient Health Assistant.",
+    tech: ["React", "Spring Boot", "PostgreSQL", "Gemini AI"],
+    link: "https://medi-book-flax.vercel.app/",
+    icon: Code2,
+    status: "Live",
+    image: "/medibook.png"
+  },
+  {
+    title: "SpendWise",
+    category: "FinTech App",
+    description: "Highly secure 3-tier expense tracker with normalized PostgreSQL schema, deployed on Railway & Netlify.",
+    tech: ["Java", "Spring Boot", "React", "PostgreSQL"],
+    link: "https://jazzy-concha-e4ad62.netlify.app/",
+    icon: Briefcase,
+    status: "Live",
+    image: "/spendwise.png"
+  },
+  {
+    title: "Black Olives",
+    category: "Premium E-commerce",
+    description: "Next.js SSR e-commerce platform for Apple products with dynamic routing and high SEO scores.",
+    tech: ["Next.js", "React", "Tailwind CSS"],
+    link: "https://web-pro-1.netlify.app/",
+    icon: Terminal,
+    status: "Archived",
+    image: "/blackolives.png"
+  },
+  {
+    title: "Loan Prediction ML",
+    category: "Machine Learning",
+    description: "End-to-end pipeline on 58,640 samples. Tuned KNN (92% accuracy) with GridSearchCV.",
+    tech: ["Python", "Scikit-learn", "Pandas"],
+    link: "https://github.com/ashfaq-ui/Machine-learning-cw",
+    icon: Cpu,
+    status: "Completed",
+    image: "/ML.png"
+  },
+  {
+    title: "Invoice Manager",
+    category: "Desktop App",
+    description: "Cross-platform desktop app for Mac and Windows delivered solo in 3 weeks. Manages invoices, sales ledger, and financial analysis across 3 report types with zero-install distribution via GitHub Releases.",
+    tech: ["Electron", "JavaScript", "Node.js"],
+    link: "https://github.com/ashfaq-ui/invoice-manager",
+    icon: FolderGit2,
+    status: "Live",
+    image: "/dataentry.png"
+  },
+  {
+    title: "Eco Pulse",
+    category: "Sustainable Web Design",
+    description: "A responsive platform advocating for UN SDG 13 (Climate Action). Built entirely from scratch using semantic HTML5, CSS3, and vanilla JavaScript.",
+    tech: ["HTML5", "CSS3", "JavaScript", "UI/UX"],
+    link: "https://spectacular-haupia-11b44a.netlify.app/", // Live link
+    icon: LayoutDashboard,
+    status: "Live",
+    image: "/eco_pulse.png"
+  },
+  {
+    title: "Traffic Analyst",
+    category: "Data Science & Viz",
+    description: "A Python-based analytical tool for processing council traffic surveys. Generates automated statistical reports and dynamic histograms.",
+    tech: ["Python", "Tkinter", "Pandas", "Data Viz"],
+    link: "https://github.com/ashfaq-ui",
+    icon: Activity,
+    status: "Completed",
+    image: "/traffic.png"
+  }
+];
+
+
+// Views
+const Overview = ({ setActiveTab }) => (
+  <div className="animate-fade-in max-w-5xl mx-auto space-y-8">
+    <div className="flex flex-col-reverse md:flex-row gap-8 items-start justify-between bg-[#161925] border border-white/5 p-8 rounded-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="flex-1 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-400 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                Open for Internships
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4">
+                Mohamed <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-400">Ashfaq</span>
+            </h1>
+            <p className="text-lg text-slate-400 font-light max-w-2xl leading-relaxed mb-8">
+                Computer Science Undergraduate specializing in Full-Stack Web Development, AI Integrations, and IoT Systems. 
+                I turn complex problems into elegant, highly scalable solutions.
+            </p>
+            <div className="flex flex-wrap gap-4">
+                <button onClick={() => setActiveTab('projects')} className="bg-white text-black font-semibold py-2.5 px-6 rounded-lg hover:bg-slate-200 transition-colors shadow-lg">
+                    View Projects
+                </button>
+                <a href="/Mohamed_Ashfaq_CV.pdf" target="_blank" className="bg-[#1d2130] border border-white/10 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-[#252a3d] hover:border-white/20 transition-all">
+                    Resume
+                </a>
+            </div>
         </div>
-      )}
+        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-white/10 flex-shrink-0 relative z-10 self-center md:self-auto">
+            <img src="/profilePic.jpeg" alt="Mohamed Ashfaq" className="w-full h-full object-cover" />
+        </div>
     </div>
 
-    <div className="flex justify-between items-start mb-6">
-      <div>
-        <span className="text-xs font-medium tracking-widest text-zinc-500 uppercase mb-2 block">{category}</span>
-        <h3 className="text-xl md:text-2xl font-semibold text-zinc-100 group-hover:text-white transition-colors">{title}</h3>
-      </div>
-      <ArrowUpRight className="text-zinc-600 group-hover:text-white transition-colors duration-300" size={20} />
+    {/* Metric Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+            { label: "Shipped Projects", value: "8+", icon: Activity, color: "text-blue-400", bg: "bg-blue-400/10" },
+            { label: "Current Level", value: "Level 05", icon: TrendingUp, color: "text-green-400", bg: "bg-green-400/10" },
+            { label: "Primary Language", value: "Java / JS", icon: Code2, color: "text-yellow-400", bg: "bg-yellow-400/10" },
+            { label: "Location", value: "Colombo, LK", icon: MapPin, color: "text-rose-400", bg: "bg-rose-400/10" }
+        ].map((stat, i) => (
+            <div key={i} className="bg-[#161925] border border-white/5 p-6 rounded-2xl flex flex-col items-start hover:border-white/10 transition-colors">
+                <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4`}>
+                    <stat.icon size={20} />
+                </div>
+                <p className="text-slate-500 text-sm font-medium mb-1">{stat.label}</p>
+                <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
+            </div>
+        ))}
     </div>
-    
-    <p className="text-zinc-400 leading-relaxed mb-8 font-light text-sm md:text-base">
-      {description}
-    </p>
 
-    <div className="flex flex-wrap gap-2 md:gap-3 mt-auto">
-      {tech.map((t, i) => (
-        <span key={i} className="text-xs font-medium text-zinc-400 bg-zinc-800/50 px-3 py-1.5 rounded-full border border-zinc-700/50">
-          {t}
-        </span>
-      ))}
+    {/* Core Skills Tech Stack */}
+    <div className="bg-[#161925] border border-white/5 p-8 rounded-2xl">
+        <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <Terminal size={20} className="text-red-400" />
+            Core Technology Stack
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Frontend</h4>
+                <div className="flex flex-wrap gap-2">
+                    {['React', 'Next.js', 'Tailwind CSS', 'Flutter'].map(t => (
+                        <span key={t} className="px-3 py-1 bg-[#1d2130] border border-white/5 rounded-md text-sm text-slate-300">{t}</span>
+                    ))}
+                </div>
+            </div>
+            <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Backend & Database</h4>
+                <div className="flex flex-wrap gap-2">
+                    {['Java (Spring Boot)', 'Node.js', 'PostgreSQL', 'REST APIs'].map(t => (
+                        <span key={t} className="px-3 py-1 bg-[#1d2130] border border-white/5 rounded-md text-sm text-slate-300">{t}</span>
+                    ))}
+                </div>
+            </div>
+            <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">AI & Edge</h4>
+                <div className="flex flex-wrap gap-2">
+                    {['Python', 'TensorFlow Lite', 'Gemini AI', 'C++ (ESP32)'].map(t => (
+                        <span key={t} className="px-3 py-1 bg-[#1d2130] border border-white/5 rounded-md text-sm text-slate-300">{t}</span>
+                    ))}
+                </div>
+            </div>
+        </div>
     </div>
-  </a>
+  </div>
 );
 
-export default function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+const ProjectsList = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  useEffect(() => {
-    // Simulate loading time (e.g., 2 seconds)
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleNavClick = (id) => {
-    setIsMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  if (loading) {
+  if (selectedProject) {
+    const p = selectedProject;
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 transition-opacity duration-700 ease-out" style={{ opacity: loading ? 1 : 0 }}>
-        <div className="text-center animate-pulse">
-             <div className="font-bold text-3xl md:text-5xl text-white tracking-tight z-[60]">
-            ASHFAQ<span className="text-zinc-600">.DEV</span>
-          </div>
-          <div className="mt-4 w-16 h-1 bg-zinc-800 rounded-full mx-auto overflow-hidden">
-             <div className="h-full bg-white animate-progress-bar"></div>
-          </div>
+      <div className="animate-fade-in max-w-4xl mx-auto space-y-6">
+        <button 
+          onClick={() => setSelectedProject(null)} 
+          className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium w-fit"
+        >
+            <ChevronRight size={16} className="rotate-180" /> Back to Projects
+        </button>
+
+        <div className="bg-[#161925] border border-white/5 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/5 blur-[100px] rounded-full pointer-events-none"></div>
+            
+            <div className="flex items-start md:items-center gap-5 mb-8 relative z-10 flex-col md:flex-row">
+                <div className="w-16 h-16 rounded-2xl bg-[#252a3d] border border-white/10 flex items-center justify-center flex-shrink-0 text-red-400 shadow-xl">
+                    <p.icon size={32} />
+                </div>
+                <div>
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">{p.title}</h1>
+                    <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-sm font-semibold text-rose-400 uppercase tracking-widest">{p.category}</span>
+                        <span className={`text-xs px-3 py-1 rounded-full border flex items-center gap-1.5 font-medium
+                            ${p.status === 'Production' || p.status === 'Live' ? 'bg-green-500/10 text-green-400 border-green-500/20' : 
+                              p.status === 'Completed' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 
+                              'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}
+                        >
+                            {p.status === 'Production' || p.status === 'Live' ? <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> : null}
+                            {p.status}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {p.image && (
+                <div className="mb-10 w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative z-10 bg-[#1d2130]">
+                    <img src={p.image} alt={p.title} className="w-full h-auto object-cover max-h-[500px]" />
+                </div>
+            )}
+
+            <div className="mb-12 relative z-10">
+                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 border-b border-white/5 pb-3">Project Overview</h3>
+                <p className="text-lg text-slate-300 leading-relaxed">{p.description}</p>
+            </div>
+
+            <div className="mb-12 relative z-10">
+                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 border-b border-white/5 pb-3">Technologies & Tools</h3>
+                <div className="flex flex-wrap gap-2">
+                    {p.tech.map(t => (
+                        <span key={t} className="px-4 py-2 bg-[#1d2130] border border-white/5 rounded-xl text-sm font-medium text-slate-200">{t}</span>
+                    ))}
+                </div>
+            </div>
+
+            <div className="pt-8 border-t border-white/5 flex gap-4 relative z-10">
+                <a href={p.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-red-600/20 w-full md:w-auto justify-center">
+                    Visit Project Link <ExternalLink size={18} />
+                </a>
+            </div>
         </div>
-        <style jsx>{`
-            @keyframes progress-bar {
-                0% { width: 0%; }
-                50% { width: 50%; }
-                100% { width: 100%; }
-            }
-            .animate-progress-bar {
-                animation: progress-bar 2s ease-in-out forwards;
-            }
-        `}</style>
       </div>
     );
   }
 
+  return (
+    <div className="animate-fade-in max-w-5xl mx-auto space-y-6">
+      <div className="flex items-center justify-between mb-8">
+          <div>
+              <h2 className="text-2xl font-bold text-white mb-1">Projects</h2>
+              <p className="text-slate-500 text-sm">A collection of full-stack, AI, and IoT applications.</p>
+          </div>
+      </div>
+
+      <div className="bg-[#161925] border border-white/5 rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-12 gap-4 p-4 border-b border-white/5 bg-[#1d2130]/50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <div className="col-span-12 md:col-span-5">Project / Description</div>
+              <div className="hidden md:block md:col-span-3">Tech Stack</div>
+              <div className="hidden md:block md:col-span-2">Status</div>
+              <div className="hidden md:block md:col-span-2 text-right">Action</div>
+          </div>
+          
+          <div className="divide-y divide-white/5">
+              {projects.map((p, i) => (
+                  <div key={i} onClick={() => setSelectedProject(p)} className="grid grid-cols-12 gap-4 p-6 hover:bg-[#1d2130] transition-colors items-center group cursor-pointer">
+                      <div className="col-span-12 md:col-span-5 flex gap-4 items-start">
+                          <div className="w-10 h-10 rounded-lg bg-[#252a3d] border border-white/10 flex items-center justify-center flex-shrink-0 text-red-400 group-hover:scale-110 transition-transform">
+                              <p.icon size={20} />
+                          </div>
+                          <div>
+                              <h3 className="text-base font-bold text-slate-200 mb-1 flex items-center gap-2 group-hover:text-red-400 transition-colors">
+                                  {p.title}
+                                  <span className="md:hidden text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">{p.status}</span>
+                              </h3>
+                              <p className="text-sm text-slate-500 leading-relaxed line-clamp-2">{p.description}</p>
+                              
+                              <div className="flex flex-wrap gap-1.5 mt-3 md:hidden">
+                                  {p.tech.map(t => (
+                                      <span key={t} className="text-[10px] px-2 py-1 bg-[#252a3d] border border-white/5 rounded text-slate-400">{t}</span>
+                                  ))}
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div className="hidden md:flex md:col-span-3 flex-wrap gap-1.5 items-center">
+                          {p.tech.map(t => (
+                              <span key={t} className="text-xs px-2 py-1 bg-[#252a3d] border border-white/5 rounded text-slate-400">{t}</span>
+                          ))}
+                      </div>
+                      
+                      <div className="hidden md:flex md:col-span-2 items-center">
+                          <span className={`text-xs px-2.5 py-1 rounded-full border flex items-center gap-1.5
+                              ${p.status === 'Production' || p.status === 'Live' ? 'bg-green-500/10 text-green-400 border-green-500/20' : 
+                                p.status === 'Completed' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 
+                                'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}
+                          >
+                              {p.status === 'Production' || p.status === 'Live' ? <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> : null}
+                              {p.status}
+                          </span>
+                      </div>
+
+                      <div className="hidden md:flex md:col-span-2 items-center justify-end text-slate-500 group-hover:text-white transition-colors">
+                          <span className="text-sm font-medium mr-2 opacity-0 group-hover:opacity-100 transition-opacity">View Details</span>
+                          <ChevronRight size={18} />
+                      </div>
+                      
+                      <div className="col-span-12 mt-2 md:hidden">
+                          <div className="w-full py-2 flex items-center justify-center gap-2 bg-[#252a3d] border border-white/5 rounded-lg text-sm text-slate-300">
+                              View Details <ChevronRight size={14} />
+                          </div>
+                      </div>
+                  </div>
+              ))}
+          </div>
+      </div>
+    </div>
+  );
+};
+
+const Background = () => (
+  <div className="animate-fade-in max-w-5xl mx-auto space-y-8">
+    
+    <div className="bg-[#161925] border border-white/5 rounded-2xl p-8">
+        <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <GraduationCap className="text-red-400" />
+            Education
+        </h2>
+        
+        <div className="space-y-8 pl-4 border-l border-white/10 ml-3">
+            <div className="relative">
+                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-red-500 ring-4 ring-[#161925]"></div>
+                <h3 className="text-lg font-bold text-slate-200">BSc (Hons) Computer Science</h3>
+                <p className="text-sm font-medium text-red-400 mb-2">University of Westminster | Sep 2024 - Present</p>
+                <div className="bg-[#1d2130] border border-white/5 p-4 rounded-xl inline-block mt-2">
+                    <p className="text-slate-400 text-sm mb-1">Core Modules:</p>
+                    <p className="text-slate-200 text-sm font-medium">Database Systems, OOP, Machine Learning, Algorithms, Client Server Architecture</p>
+                </div>
+            </div>
+
+            <div className="relative">
+                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-slate-600 ring-4 ring-[#161925]"></div>
+                <h3 className="text-lg font-bold text-slate-200">Advanced Level - Physical Science</h3>
+                <p className="text-sm font-medium text-slate-500 mb-2">Hindu College, Rathmalana | 2010 - 2023</p>
+                <p className="text-slate-400 text-sm">Combined Mathematics & Physics</p>
+            </div>
+        </div>
+    </div>
+
+    <div className="bg-[#161925] border border-white/5 rounded-2xl p-8">
+        <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <Award className="text-rose-400" />
+            Achievements & Leadership
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+                "Finalist in Hackathons CodeRally 6.0 and Xtreme 19.0",
+                "Competitor in the Hult Prize competition and SLIIT MATHFEST 2023",
+                "IEEE Member at Informatics Institute of Technology (2024 - Present)",
+                "Leadership Prefect (2019 - 2022) at Hindu College"
+            ].map((item, i) => (
+                <div key={i} className="flex gap-4 p-5 rounded-xl bg-[#1d2130] border border-white/5 items-start hover:border-white/10 transition-colors">
+                    <CheckCircle2 className="text-rose-500 flex-shrink-0 mt-0.5" size={18}/>
+                    <p className="text-sm text-slate-300 font-medium leading-relaxed">{item}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+
+  </div>
+);
+
+const Contact = () => (
+  <div className="animate-fade-in max-w-3xl mx-auto space-y-8">
+    <div className="text-center mb-10">
+        <div className="w-16 h-16 bg-red-500/10 text-red-400 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Mail size={32} />
+        </div>
+        <h1 className="text-3xl font-bold text-white mb-4">Get in touch</h1>
+        <p className="text-slate-400 max-w-lg mx-auto">
+            I'm currently looking for new opportunities and internships. Whether you have a question or just want to connect, my inbox is always open.
+        </p>
+    </div>
+
+    <div className="bg-[#161925] border border-white/5 p-8 md:p-10 rounded-2xl">
+        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-slate-400">Name</label>
+                    <input type="text" className="w-full bg-[#1d2130] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all" placeholder="John Doe" />
+                </div>
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-slate-400">Email</label>
+                    <input type="email" className="w-full bg-[#1d2130] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all" placeholder="john@example.com" />
+                </div>
+            </div>
+            <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-400">Message</label>
+                <textarea rows="5" className="w-full bg-[#1d2130] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all resize-none" placeholder="How can I help you?"></textarea>
+            </div>
+            <button className="w-full bg-white text-black font-bold py-3.5 rounded-lg hover:bg-slate-200 transition-colors shadow-lg">
+                Send Message
+            </button>
+        </form>
+    </div>
+
+    <div className="flex justify-center gap-4 pt-6 border-t border-white/5">
+        <a href="https://github.com/ashfaq-ui" target="_blank" rel="noopener noreferrer" className="p-3 bg-[#161925] border border-white/5 rounded-xl hover:bg-[#1d2130] hover:text-white text-slate-400 transition-all">
+            <Github size={24} />
+        </a>
+        <a href="https://linkedin.com/in/ashfaq-mohamed" target="_blank" rel="noopener noreferrer" className="p-3 bg-[#161925] border border-white/5 rounded-xl hover:bg-[#1d2130] hover:text-blue-500 text-slate-400 transition-all">
+            <Linkedin size={24} />
+        </a>
+    </div>
+  </div>
+);
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => { setLoading(false); }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+    { id: 'projects', label: 'Projects', icon: FolderGit2 },
+    { id: 'background', label: 'Background', icon: GraduationCap },
+    { id: 'contact', label: 'Contact', icon: Mail }
+  ];
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-[#0f111a] flex items-center justify-center z-50">
+        <div className="w-8 h-8 border-2 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  const renderContent = () => {
+    switch(activeTab) {
+        case 'overview': return <Overview setActiveTab={setActiveTab} />;
+        case 'projects': return <ProjectsList />;
+        case 'background': return <Background />;
+        case 'contact': return <Contact />;
+        default: return <Overview setActiveTab={setActiveTab} />;
+    }
+  };
 
   return (
-    <div className="min-h-screen text-zinc-300 relative selection:bg-white selection:text-black font-sans animate-fade-in">
-      
-      {/* Background Texture */}
-      <div className="noise-bg"></div>
+    <div className="flex h-screen bg-[#0f111a] text-slate-200 font-sans selection:bg-red-500/30 overflow-hidden relative">
+      {/* Background Subtle Gradient */}
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none"></div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
-          
-          {/* Logo */}
-          <div className="font-bold text-xl text-white tracking-tight z-[60]">
-            ASHFAQ<span className="text-zinc-600">.DEV</span>
-          </div>
+      {/* MOBILE HEADER */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-[#161925]/80 backdrop-blur-xl border-b border-white/5 z-40 flex items-center justify-between px-4">
+        <div className="font-bold text-white tracking-tight flex items-center gap-2">
+            <div className="w-6 h-6 rounded bg-red-600 flex items-center justify-center text-xs"><Terminal size={14} className="text-white"/></div>
+            Ashfaq
+        </div>
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-slate-400">
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8 bg-zinc-900/50 px-8 py-2 rounded-full border border-white/5">
-            {['About', 'Skills', 'Projects', 'Education', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-zinc-400 hover:text-white transition-colors duration-300">
-                {item}
-              </a>
-            ))}
-          </div>
-
-          {/* Desktop Socials */}
-          <div className="hidden md:flex gap-5">
-            <a href="https://github.com/ashfaq-ui" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Github size={20} /></a>
-            <a href="https://linkedin.com/in/ashfaq-mohamed" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Linkedin size={20} /></a>
-          </div>
-
-          {/* Mobile Toggle Button */}
-          {!isMobileMenuOpen && (
-            <button 
-              className="md:hidden text-zinc-400 hover:text-white"
-              onClick={() => setIsMobileMenuOpen(true)}
-            >
-              <Menu size={28} />
-            </button>
-          )}
+      {/* SIDEBAR NAVIGATION */}
+      <aside className={`fixed md:relative top-0 left-0 h-full w-64 bg-[#161925] border-r border-white/5 z-[60] transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} flex flex-col`}>
+        {/* Logo / Profile snippet */}
+        <div className="h-20 flex items-center px-6 border-b border-white/5">
+            <div className="font-bold text-xl text-white tracking-tight flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-sm shadow-lg shadow-red-600/20">
+                    <Terminal size={18} className="text-white"/>
+                </div>
+                Ashfaq
+            </div>
         </div>
 
-        {/* MOBILE MENU - THE SOLID GRID FIX */}
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-[9999] md:hidden">
-            <div 
-              className="absolute inset-0 bg-[#050505]"
-              style={{ 
-                backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
-                backgroundSize: '35px 35px'
-              }}
-            ></div>
-
-            <div className="relative h-full flex flex-col animate-fade-in">
-              <div className="h-20 px-6 flex items-center justify-between border-b border-white/10 bg-black/50">
-                <div className="font-bold text-xl text-white tracking-tight">
-                  ASHFAQ<span className="text-zinc-600">.DEV</span>
-                </div>
+        {/* Nav Links */}
+        <nav className="flex-1 px-4 py-8 space-y-2">
+            <div className="text-xs font-semibold text-slate-500 uppercase tracking-widest px-3 mb-4">Menu</div>
+            {tabs.map(tab => (
                 <button 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-zinc-400 hover:text-white transition-colors p-2 bg-zinc-900 rounded-full border border-white/10"
+                    key={tab.id}
+                    onClick={() => { setActiveTab(tab.id); setMobileMenuOpen(false); }}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all
+                        ${activeTab === tab.id ? 'bg-[#252a3d] text-white' : 'text-slate-400 hover:text-slate-200 hover:bg-[#1d2130]'}`}
                 >
-                  <X size={24} />
+                    <tab.icon size={18} className={activeTab === tab.id ? 'text-red-400' : ''} />
+                    {tab.label}
                 </button>
-              </div>
-
-              <div className="flex-1 flex flex-col items-center justify-center gap-10 p-6">
-                {['About', 'Skills', 'Projects', 'Education', 'Contact'].map((item) => (
-                  <button 
-                    key={item} 
-                    onClick={() => handleNavClick(item.toLowerCase())}
-                    className="text-4xl font-bold text-zinc-300 hover:text-white hover:scale-105 transition-all tracking-tight"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-
-              <div className="p-10 flex justify-center gap-8 border-t border-white/10 bg-black/40">
-                <a href="https://github.com/ashfaq-ui" className="text-zinc-500 hover:text-white transition-colors p-3 bg-zinc-900 rounded-full border border-white/5"><Github size={24} /></a>
-                <a href="https://linkedin.com/in/ashfaq-mohamed" className="text-zinc-500 hover:text-white transition-colors p-3 bg-zinc-900 rounded-full border border-white/5"><Linkedin size={24} /></a>
-                <a href="mailto:ashfaq.cs2025@gmail.com" className="text-zinc-500 hover:text-white transition-colors p-3 bg-zinc-900 rounded-full border border-white/5"><Mail size={24} /></a>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Main Content */}
-      <main className="relative z-10 px-6 md:px-20 max-w-7xl mx-auto pt-32 md:pt-40 pb-20">
-        
-        {/* HERO */}
-        <section id="about" className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 mb-24 md:mb-32 animate-fade-in scroll-mt-28">
-          <div className="max-w-3xl flex-1 text-center md:text-left order-2 md:order-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-400 mb-6 md:mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Available for Internships
-            </div>
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tight leading-[1.1] mb-6 md:mb-8">
-              MOHAMED <br />
-              <span className="text-zinc-500">ASHFAQ</span>
-            </h1>
-            <p className="text-lg md:text-2xl text-zinc-400 font-light leading-relaxed max-w-2xl mb-8 md:mb-10 mx-auto md:mx-0">
-              Computer Science Undergraduate at the <span className="text-white font-medium">University of Westminster</span>. 
-              I specialize in building production-ready full-stack web applications and IoT systems using <span className="text-white font-medium">Java (Spring Boot), React,</span> and <span className="text-white font-medium">PostgreSQL</span> — with 8 shipped projects across web, IoT, desktop, and ML.
-            </p>
-            <div className="flex gap-4 justify-center md:justify-start">
-              <a href="#projects" className="bg-white text-black font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-200 transition-colors text-sm md:text-base">View Work</a>
-              <a href="/Mohamed_Ashfaq_CV.pdf" className="bg-zinc-900 text-white border border-zinc-800 font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg hover:bg-zinc-800 transition-colors text-sm md:text-base">Resume</a>
-            </div>
-          </div>
-          <div className="relative group w-64 h-64 md:w-96 md:h-96 flex-shrink-0 order-1 md:order-2">
-            <div className="absolute inset-0 bg-zinc-800 rounded-2xl rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
-            <div className="absolute inset-0 bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-700 shadow-2xl">
-              <img src="/profilePic.jpeg" alt="Mohamed Ashfaq" width="400" height="400" loading="eager" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"/>
-            </div>
-          </div>
-        </section>
-
-        {/* STATS */}
-        <section id="skills" className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 border-y border-white/5 py-8 md:py-12 mb-20 md:mb-32 scroll-mt-28">
-          {[
-            { label: 'Focus', value: 'Full-Stack & IoT', icon: <Cpu /> },
-            { label: 'Stack', value: 'Java / React / PostgreSQL', icon: <Code2 /> },
-            { label: 'Education', value: 'BSc Computer Science', icon: <GraduationCap /> },
-            { label: 'Location', value: 'Sri Lanka', icon: <Layers /> }
-          ].map((stat, i) => (
-            <div key={i} className="space-y-2 hover:bg-zinc-900/30 p-4 rounded-lg transition-colors text-center md:text-left">
-              <div className="text-zinc-500 mb-1 flex justify-center md:justify-start">{stat.icon}</div>
-              <h4 className="text-white font-semibold text-base md:text-lg leading-tight">{stat.value}</h4>
-              <p className="text-xs md:text-sm text-zinc-600 uppercase tracking-wider font-medium">{stat.label}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* SKILLS */}
-        <section className="mb-32">
-          <h3 className="text-xl font-bold text-white mb-8 pl-4 border-l-2 border-white">Technical Proficiency</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { title: 'Frontend', icon: <Layout />, skills: ['React', 'Next.js', 'Flutter', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'HTML5', 'CSS3'] },
-              { title: 'Backend & DB', icon: <Server />, skills: ['Spring Boot', 'REST API', 'JWT Auth', 'Microservices', 'PostgreSQL', 'MySQL', 'Supabase'] },
-              { title: 'Languages', icon: <Terminal />, skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C++'] },
-              { title: 'DevOps & Tools', icon: <Settings />, skills: ['Docker', 'GitHub Actions', 'CI/CD', 'Git', 'Postman', 'Figma', 'Electron', 'Railway', 'Vercel'] },
-              { title: 'Data & ML', icon: <Cpu />, skills: ['Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Plotly', 'Jupyter Notebooks'] }
-            ].map((group, idx) => (
-              <div key={idx} className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors group">
-                <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-2">
-                  <div className="text-zinc-500 group-hover:text-zinc-300 transition-colors">{group.icon}</div>
-                  <h4 className="text-zinc-400 text-sm font-medium uppercase tracking-widest">{group.title}</h4>
-                </div>
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  {group.skills.map(skill => (
-                    <span key={skill} className="px-3 py-1.5 text-xs md:text-sm text-zinc-300 bg-zinc-800/80 rounded-full border border-zinc-700 hover:border-zinc-500 hover:text-white transition-all cursor-default">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
             ))}
-          </div>
-        </section>
+        </nav>
 
-        {/* PROJECTS */}
-        <section id="projects" className="mb-32 scroll-mt-28">
-          <div className="flex items-end justify-between mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Selected Work</h2>
-            <span className="text-zinc-600 text-sm hidden md:block">01 — 08</span>
-          </div>
+        {/* Bottom Actions */}
+        <div className="p-4 border-t border-white/5">
+            <a href="/Mohamed_Ashfaq_CV.pdf" target="_blank" className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#1d2130] hover:bg-[#252a3d] border border-white/5 rounded-xl text-sm font-medium text-slate-300 transition-colors">
+                <FileText size={16} /> Resume PDF
+            </a>
+        </div>
+      </aside>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <ProjectCard
-              title="Airea"
-              category="IoT & Health Tech"
-              description="End-to-end IoT health monitoring platform for early lung cancer detection. Built over 7 months with a 4-member team — ESP32 wearables, Spring Boot REST API backend, and a Flutter app with Supabase storage and FCM real-time alerts."
-              tech={['C++ (ESP32)', 'Flutter', 'Spring Boot', 'Supabase', 'FCM']}
-              link="https://airea.lk"
-              image="/airea.png"
-            />
-            <ProjectCard
-              title="MediBook"
-              category="Full-Stack Web App"
-              description="Full-stack clinic appointment system built solo in under 6 weeks. Features 3 user roles (Patient, Doctor, Admin), 15+ REST API endpoints, JWT auth, BCrypt hashing, Gmail SMTP notifications, and a CI/CD pipeline via GitHub Actions."
-              tech={['React', 'Spring Boot', 'PostgreSQL', 'JWT', 'GitHub Actions']}
-              link="https://medi-book-flax.vercel.app/"
-              image="/medibook.png"
-            />
-            <ProjectCard
-              title="SpendWise"
-              category="FinTech Full Stack"
-              description="A secure expense tracker with a decoupled 3-tier architecture. Handles business logic via Spring Boot with 10+ REST API endpoints, PostgreSQL persistence, and a React frontend with real-time updates."
-              tech={['Spring Boot', 'React', 'PostgreSQL', 'Railway']}
-              link="https://jazzy-concha-e4ad62.netlify.app/"
-              image="/spendwise.png"
-            />
-            <ProjectCard
-              title="Invoice Manager"
-              category="Desktop App"
-              description="Cross-platform desktop app for Mac and Windows delivered solo in 3 weeks. Manages invoices, sales ledger, and financial analysis across 3 report types with zero-install distribution via GitHub Releases."
-              tech={['Electron', 'JavaScript', 'Node.js']}
-              link="https://github.com/ashfaq-ui/invoice-manager"
-              image="/dataentry.png"
-            />
-            <ProjectCard
-              title="Loan Approval Prediction"
-              category="Machine Learning"
-              description="End-to-end ML pipeline on 58,640 samples. KNN tuned via GridSearchCV achieved 92.21% accuracy and 0.9519 AUC-ROC — best across 3 classifiers. Includes full data preprocessing, Voting Ensemble, and feature importance analysis."
-              tech={['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Plotly']}
-              link="https://github.com/ashfaq-ui/loan-approval-ml"
-              image="ML.png"
-            />
-            <ProjectCard
-              title="Black Olives"
-              category="Premium E-commerce"
-              description="A high-performance retail platform for Apple products built solo in 4 months. Features SSR with Next.js getServerSideProps, dynamic routing, and SEO-optimized pages."
-              tech={['Next.js', 'React', 'Tailwind CSS']}
-              link="https://web-pro-1.netlify.app/"
-              image="/blackolives.png"
-            />
-            <ProjectCard
-              title="Eco Pulse"
-              category="Sustainable Web Design"
-              description="A responsive platform advocating for UN SDG 13 (Climate Action). Built entirely from scratch using semantic HTML5, CSS3, and vanilla JavaScript."
-              tech={['HTML5', 'CSS3', 'JavaScript', 'UI/UX']}
-              link="https://spectacular-haupia-11b44a.netlify.app/"
-              image="/eco_pulse.png"
-            />
-            <ProjectCard
-              title="Traffic Analyst"
-              category="Data Science & Viz"
-              description="A Python-based analytical tool for processing council traffic surveys. Generates automated statistical reports and dynamic histograms."
-              tech={['Python', 'Tkinter', 'Pandas', 'Data Viz']}
-              link="https://github.com/ashfaq-ui/Traffic_Data_Analysis"
-              image="/traffic.png"
-            />
-          </div>
-        </section>
+      {/* OVERLAY FOR MOBILE */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]" onClick={() => setMobileMenuOpen(false)}></div>
+      )}
 
-        {/* EDUCATION */}
-        <section id="education" className="mb-32 max-w-4xl scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 md:mb-12">Education</h2>
-          <div className="border-l border-zinc-800 pl-6 md:pl-8 space-y-12">
-            <div className="relative">
-              <span className="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></span>
-              <h3 className="text-lg md:text-xl font-bold text-white">BSc (Hons) Computer Science</h3>
-              <p className="text-zinc-500 mb-2 text-sm md:text-base">Informatics Institute of Technology (IIT), Affiliated with University of Westminster | Sep 2024 – Present</p>
-              <p className="text-zinc-400 max-w-2xl text-sm md:text-base leading-relaxed mb-3">
-                Current Average: <span className="text-white font-semibold">76.8%</span> — Notable grades: Computer System Fundamentals (97%), Mathematics for Computing (88%), Software Development II — Java (83%).
-              </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
-                Level 05 (In Progress): Database Systems (87%), OOP (78%), SDGP (81%), Machine Learning & Data Mining, Algorithms, Client Server Architecture.
-              </p>
+      {/* MAIN CONTENT AREA */}
+      <main className="flex-1 h-full flex flex-col relative z-10 w-full overflow-hidden">
+        {/* Sticky Header */}
+        <header className="h-20 flex-shrink-0 flex items-center px-8 hidden md:flex">
+            <div className="flex items-center text-sm font-medium text-slate-500">
+                <span>Ashfaq</span>
+                <ChevronRight size={16} className="mx-2 text-slate-700" />
+                <span className="text-slate-200 capitalize">{activeTab}</span>
             </div>
-            <div className="relative">
-              <span className="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></span>
-              <h3 className="text-lg md:text-xl font-bold text-white">Collegiate & Secondary Education</h3>
-              <p className="text-zinc-500 mb-4 text-sm md:text-base">Hindu College, Rathmalana | Jan 2010 - Dec 2023</p>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-zinc-300 font-semibold text-xs md:text-sm uppercase tracking-wide mb-1">G.C.E. Advanced Level (Physical Science)</h4>
-                  <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed">Achieved strong passes in Combined Mathematics and Physics.</p>
-                </div>
-                <div>
-                  <h4 className="text-zinc-300 font-semibold text-xs md:text-sm uppercase tracking-wide mb-1">G.C.E. Ordinary Level</h4>
-                  <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed">Demonstrated foundational academic strength with an A Grade in Mathematics.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        </header>
 
-        {/* CONTACT SECTION (Themed to match the website) */}
-        <section id="contact" className="mb-20 animate-fade-in scroll-mt-28 text-center max-w-xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">
-            Let's Connect
-          </h2>
-          <p className="text-zinc-400 mb-10 leading-relaxed">
-            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-          </p>
-          
-          {/* Card Container - Matches Project Card Style */}
-          <div className="bg-zinc-900/40 border border-zinc-800 p-8 rounded-2xl backdrop-blur-sm hover:border-zinc-700 transition-colors duration-300">
-            
-            <form className="space-y-4" action="mailto:ashfaq.cs2025@gmail.com" method="post" encType="text/plain">
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input 
-                  type="text" 
-                  name="name"
-                  placeholder="Name" 
-                  className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
-                  required
-                />
-                <input 
-                  type="email" 
-                  name="email"
-                  placeholder="Email" 
-                  className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
-                  required
-                />
-              </div>
-              
-              <input 
-                type="text" 
-                name="subject"
-                placeholder="Subject" 
-                className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all"
-                required
-              />
-              
-              <textarea 
-                name="message"
-                placeholder="Message" 
-                rows="4"
-                className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all resize-none"
-                required
-              ></textarea>
-              
-              {/* Button - Matches the 'View Work' button style (White & Black) */}
-              <button 
-                type="submit"
-                className="w-full bg-white text-black font-bold py-3 rounded-lg hover:bg-zinc-200 transition-colors duration-300"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <footer className="py-8 mt-12 border-t border-white/5 scroll-mt-28">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-1">Let's build something.</h3>
-              <p className="text-sm text-zinc-600">Open for internships and collaborations.</p>
-            </div>
-            <div className="flex flex-col items-center md:items-end gap-4">
-              <div className="flex gap-6 text-sm font-medium text-zinc-500">
-                <a href="mailto:ashfaq.cs2025@gmail.com" className="hover:text-white transition-colors">Get in touch</a>
-                <a href="https://linkedin.com/in/ashfaq-mohamed" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-                <a href="https://github.com/ashfaq-ui" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-              </div>
-              <div className="text-xs text-zinc-800">
-                © 2026 Mohamed Ashfaq. All rights reserved.
-              </div>
-            </div>
-          </div>
-        </footer>
-
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden pt-24 md:pt-4 px-4 sm:px-8 pb-32">
+            {renderContent()}
+        </div>
       </main>
+      
     </div>
   );
 }
